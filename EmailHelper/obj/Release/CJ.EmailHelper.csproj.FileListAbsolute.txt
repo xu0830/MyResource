@@ -1,0 +1,6 @@
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.EmailHelper.csprojAssemblyReference.cache
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.EmailHelper.csproj.CoreCompileInputs.cache
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Release\CJ.EmailHelper.dll
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Release\CJ.EmailHelper.pdb
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.EmailHelper.dll
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.EmailHelper.pdb

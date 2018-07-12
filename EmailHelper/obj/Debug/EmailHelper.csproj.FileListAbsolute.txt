@@ -1,0 +1,5 @@
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Debug\EmailHelper.dll
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Debug\EmailHelper.pdb
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\EmailHelper.csproj.CoreCompileInputs.cache
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\EmailHelper.dll
+F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\EmailHelper.pdb
