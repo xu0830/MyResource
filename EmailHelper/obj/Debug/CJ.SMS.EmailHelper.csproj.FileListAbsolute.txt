@@ -1,5 +1,0 @@
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Debug\CJ.SMS.dll
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Debug\CJ.SMS.pdb
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\CJ.SMS.EmailHelper.csproj.CoreCompileInputs.cache
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\CJ.SMS.dll
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Debug\CJ.SMS.pdb

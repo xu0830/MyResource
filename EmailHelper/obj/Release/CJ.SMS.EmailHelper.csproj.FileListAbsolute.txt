@@ -1,6 +1,0 @@
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.SMS.EmailHelper.csprojAssemblyReference.cache
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.SMS.EmailHelper.csproj.CoreCompileInputs.cache
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Release\CJ.SMS.dll
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\bin\Release\CJ.SMS.pdb
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.SMS.dll
-F:\vs_projects\my_projects\LogTestDemo\EmailHelper\obj\Release\CJ.SMS.pdb
