@@ -48,6 +48,10 @@
       <Project>{22718e03-f5bd-4abd-bac1-120db1b680c6}</Project>
       <Name>CJ.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CJ.Models\CJ.Models.csproj">
+      <Project>{f52f81e7-b28d-4435-994c-20dadd7b5c18}</Project>
+      <Name>CJ.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CJ.Orm\CJ.Orm.csproj">
       <Project>{297df3dd-45e2-4b19-8edc-30973834e72d}</Project>
       <Name>CJ.Orm</Name>

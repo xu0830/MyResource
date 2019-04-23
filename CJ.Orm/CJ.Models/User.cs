@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace CJ.Models
 {
+    /// <summary>
+    /// 数据库user表
+    /// </summary>
     [Table("Users")]
     public class User
     {
-        
+        [KeyFilter]
         public int Id { get; set; }
 
         [Column("UserName")]

@@ -1,4 +1,5 @@
 ﻿using CJ.DAL;
+using CJ.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,21 @@ namespace CJ.UnitTest
     public class TestClass
     {
         [Test]
-        public void TestMethod()
+        public void TestCreate()
         {
-            // TODO: Add your test code here
+            //User user = new User();
+            //user.Name = "ceshi";
+            //user.Phone = "phone";
+            //user.CreateTime = DateTime.Now;
+            //Assert.IsTrue(SqlHelper.Create(user));
+        }
+
+
+        [Test]
+        public void TestRetrieve()
+        {
+            User user = SqlHelper.Retrieve<User>(1033);
+            Assert.IsNotNull(user);
         }
     }
 }
