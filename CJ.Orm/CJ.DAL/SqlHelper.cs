@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CJ.Mapper;
+using CJ.Models;
 
 namespace CJ.DAL
 {
@@ -29,20 +30,14 @@ namespace CJ.DAL
         /// <returns></returns>
         public static bool Create<T>(T t)
         {
-            using (SqlConnection conn = new SqlConnection(ConnectionStr))
-            {
-                Type type = typeof(T);
-                conn.Open();
-                SqlCommand command = new SqlCommand(SqlBuilder<T>.GetSql(SqlType.Insert), conn);
+            Type type = typeof(T);
 
-                IEnumerable<SqlParameter> sqlParameters = type.GetPropertyWithoutKey()
-                    .Select(p => new SqlParameter($"{p.GetMappingName()}", p.GetValue(t) ?? DBNull.Value));
-                command.Parameters.AddRange(sqlParameters.ToArray());
+            IEnumerable<SqlParameter> sqlParameters = type.GetPropertyWithoutKey()
+                .Select(p => new SqlParameter($"{p.GetMappingName()}", p.GetValue(t) ?? DBNull.Value));
 
-                int row = command.ExecuteNonQuery();
-
-                return row == 1;
-            }
+            return ExecuteSql(SqlBuilder<T>.GetSql(SqlType.Insert), sqlParameters, command => {
+                return command.ExecuteNonQuery() == 1;
+            });
         }
 
         /// <summary>
@@ -56,11 +51,13 @@ namespace CJ.DAL
         /// <returns></returns>
         public static T Retrieve<T>(int Id)
         {
-            using (SqlConnection conn = new SqlConnection(ConnectionStr))
+            Type type = typeof(T);
+            IEnumerable<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
-                Type type = typeof(T);
-                conn.Open();
-                SqlCommand command = new SqlCommand($"{SqlBuilder<T>.GetSql(SqlType.Select)}{Id}", conn);
+                new SqlParameter($"@Id", Id)
+            };
+
+            return ExecuteSql($"{SqlBuilder<T>.GetSql(SqlType.Select)}", sqlParameters, command => {
                 var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -68,16 +65,65 @@ namespace CJ.DAL
 
                     foreach (var prop in type.GetProperties())
                     {
-                        prop.SetValue(t, reader[prop.GetMappingName()] is DBNull? null : reader[prop.GetMappingName()]);
+                        prop.SetValue(t, reader[prop.GetMappingName()] is DBNull ? null : reader[prop.GetMappingName()]);
                     }
-
                     return t;
                 }
-                reader.Close();
                 return default(T);
-            }
+            });
         }
 
+        /// <summary>
+        /// 更新实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static bool Update<T>(T t) where T : IEntity
+        {
+            Type type = typeof(T);
+            IEnumerable<SqlParameter> sqlParameters = type.GetProperties()
+                .Select(p => new SqlParameter($"{p.GetMappingName()}", p.GetValue(t) ?? DBNull.Value));
+            return ExecuteSql(SqlBuilder<T>.GetSql(SqlType.Update), sqlParameters, command => {
+                return command.ExecuteNonQuery() == 1;
+            });
+        }
 
+        /// <summary>
+        /// 执行sql
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="paraList"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        private static T ExecuteSql<T>(string sql, IEnumerable<SqlParameter> paraList, Func<SqlCommand, T> func)
+        {
+            SqlTransaction tran = null;
+            using (SqlConnection conn = new SqlConnection(ConnectionStr))
+            {
+                try
+                {
+                    conn.Open();
+                    tran = conn.BeginTransaction();
+                    SqlCommand command = new SqlCommand(sql, conn);
+                    command.Transaction = tran;
+                    command.Parameters.AddRange(paraList.ToArray());
+                    var result = func.Invoke(command);
+                    tran.Commit();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    return default(T);
+                }
+                finally
+                {
+                    if(tran != null)
+                        tran.Dispose();
+                }
+            }
+        }
     }
 }

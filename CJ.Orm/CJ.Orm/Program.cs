@@ -25,22 +25,15 @@ namespace CJ.Orm
             //myTimer.Enabled = true;
             //myTimer.AutoReset = true;
 
-            using (SqlConnection conn = new SqlConnection("Data Source=127.0.0.1; Initial Catalog=db_Test; User Id=sa; Password=TZ@2017")) {
-                conn.Open();
-                SqlCommand command = new SqlCommand("", conn);
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "proc_user";
-                SqlParameter[] parms = {
-                    new SqlParameter("@p1", 1034),
-                    new SqlParameter("@p2", 1035)
-                };
-                var result = command.ExecuteNonQuery();
-                
-            }
+            var user = SqlHelper.Retrieve<User>(1033);
+            user.Name = "尼玛wang";
+            SqlHelper.Create(user);
 
             Directory.GetCurrentDirectory();
 
             Path.Combine();
+
+            //HashMap
 
             Console.WriteLine();
         }

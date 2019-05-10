@@ -52,6 +52,10 @@
       <Project>{95315a7e-0deb-42d2-80c4-e1f7987d5508}</Project>
       <Name>CJ.Mapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CJ.Models\CJ.Models.csproj">
+      <Project>{f52f81e7-b28d-4435-994c-20dadd7b5c18}</Project>
+      <Name>CJ.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

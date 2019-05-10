@@ -23,13 +23,20 @@ namespace CJ.DAL
         /// </summary>
         private static string InsertSql = null;
 
+        /// <summary>
+        /// 更新字符串
+        /// </summary>
+        private static string UpdateSql = null;
+
         static SqlBuilder()
         {
             Type type = typeof(T);
 
-            SelectOneSql = $"INSERT INTO {type.GetMappingName()} ({string.Join(", ", type.GetPropertyWithoutKey().Select(p => $"{p.GetMappingName()}"))}) VALUES ({string.Join(", ", type.GetPropertyWithoutKey().Select(p => $"@{p.GetMappingName()}"))})";
+            InsertSql = $"INSERT INTO {type.GetMappingName()} ({string.Join(", ", type.GetPropertyWithoutKey().Select(p => $"{p.GetMappingName()}"))}) VALUES ({string.Join(", ", type.GetPropertyWithoutKey().Select(p => $"@{p.GetMappingName()}"))})";
 
-            InsertSql = $"SELECT {string.Join(",", type.GetProperties().Select(p => $"[{p.GetMappingName()}]"))} FROM [{type.GetMappingName()}] WHERE [ID]=";
+            SelectOneSql = $"SELECT {string.Join(",", type.GetProperties().Select(p => $"[{p.GetMappingName()}]"))} FROM [{type.GetMappingName()}] WHERE [ID]=@Id";
+
+            UpdateSql = $"UPDATE [dbo].[{type.GetMappingName()}] SET {string.Join(",", type.GetPropertyWithoutKey().Select(p => $"[{p.GetMappingName()}]=@{p.GetMappingName()}"))} WHERE [ID] = @Id";
         }
 
         public static string GetSql(SqlType sqlType)
@@ -37,9 +44,11 @@ namespace CJ.DAL
             switch (sqlType)
             {
                 case SqlType.Insert:
-                    return SelectOneSql;
-                case SqlType.Select:
                     return InsertSql;
+                case SqlType.Select:
+                    return SelectOneSql;
+                case SqlType.Update:
+                    return UpdateSql;
                 default:
                     throw new Exception("SqlType Error");
             }

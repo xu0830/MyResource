@@ -11,7 +11,7 @@ namespace CJ.Models
     /// 数据库user表
     /// </summary>
     [Table("Users")]
-    public class User
+    public class User : IEntity
     {
         [KeyFilter]
         public int Id { get; set; }

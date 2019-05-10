@@ -19,6 +19,11 @@ namespace CJ.DAL
         /// <summary>
         /// 查询
         /// </summary>
-        Select
+        Select,
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        Update
     }
 }
